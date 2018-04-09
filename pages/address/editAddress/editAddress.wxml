@@ -1,0 +1,12 @@
+<!--pages/address/editAddress/editAddress.wxml-->
+<view class="container edit-address">
+  <input value='收货人：{{address.user.name||""}}' confirm-type='done'></input>
+  <input value='联系电话：{{address.user.phone||""}}' confirm-type='done'></input>
+  <view class='selection'>
+    <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+      <view class="picker">请选择：{{region[0]||''}}{{region[1]||''}}{{region[2]||''}}</view>
+    </picker>
+  </view>
+  <input value='详细地址：{{address.user.address.o||""}}' confirm-type='done'></input>
+  <button size='default' type='primary' catchtap='saveAddress'>保存</button>
+</view>

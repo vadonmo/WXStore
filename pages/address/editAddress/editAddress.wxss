@@ -1,0 +1,10 @@
+/* pages/address/editAddress/editAddress.wxss */
+
+.edit-address {
+  align-items: left;
+  margin: 20rpx;
+}
+
+.edit-address input, .selection {
+  width: 100%;
+}

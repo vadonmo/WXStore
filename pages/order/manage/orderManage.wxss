@@ -1,0 +1,28 @@
+/* pages/order/manage/orderManage.wxss */
+
+.orderItem {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.orderInfo, .order-count {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.orderInfo image {
+  width: 200rpx;
+  height: 150rpx;
+}
+
+.order-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-count {
+  justify-content: space-between;
+}
