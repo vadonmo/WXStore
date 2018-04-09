@@ -27,9 +27,11 @@ Page({
   onLoad: function (options) {
     this.getOrderManageList()
   },
+  //下拉刷新
   onPullDownRefresh: function () {
     this.getOrderManageList();
   },
+  //获取订单数据
   getOrderManageList: function () {
     let _this = this;
     wx.request({
