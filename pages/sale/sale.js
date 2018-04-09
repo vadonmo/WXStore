@@ -13,7 +13,7 @@ Page({
   getSaleGoods: function () {
     let _this = this;
     wx.request({
-      url: serverHost + 'index.php',
+      url: serverHost + 'sale/sale.php',
       success: function (res) {
         console.log(res);
         _this.setData({
@@ -28,10 +28,10 @@ Page({
     this.getSaleGoods();
   },
   //事件处理函数
-  goodsInfo: function () {
-    console.log('跳转到商品详情')
+  goodsInfo: function (e) {
+    let goodsId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../goods/goodsInfo',
+      url: 'edit/editGoods?id=' + goodsId,
     })
   },
   //下架商品

@@ -10,7 +10,8 @@
     "pages/order/manage/orderManage",
     "pages/user/userCommend/userCommend",
     "pages/money/money",
-    "pages/sale/sale"
+    "pages/sale/sale",
+    "pages/sale/edit/editGoods"
   ],
   "window": {
     "backgroundTextStyle": "dark",
