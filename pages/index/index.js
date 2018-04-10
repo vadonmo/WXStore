@@ -12,7 +12,8 @@ Page({
   getIndexGoods: function () {
     let _this = this;
     wx.request({
-      url: serverHost + 'index.php',
+      url: serverHost + 'goods/index',
+      header: { "content-type": "appliction/json" },
       success: function (res) {
         console.log(res);
         _this.setData({

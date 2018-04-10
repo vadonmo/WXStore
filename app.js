@@ -5,11 +5,17 @@ App({
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
-
+    const serverHost = this.globalData.serverHost;
     // 登录
+    let code = null;
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          code = res.code;
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
       }
     })
     // 获取用户信息
@@ -27,6 +33,22 @@ App({
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
+              wx.request({
+                url: serverHost + 'person/login',
+                method: "POST",
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                data: {
+                  code: code || "",
+                  userInfo: JSON.stringify(res)
+                },
+                fail: e => {
+                  console.log(e);
+                },
+                success: res => {
+                  console.log(res);
+                  code = res;
+                }
+              })
             }
           })
         }
@@ -36,6 +58,6 @@ App({
   globalData: {
     userInfo: null,
     userAddress: null,
-    serverHost: "http://www.jxhtss.cn/Store/"
+    serverHost: "http://vadonmo.com:8080/store/"
   }
 })

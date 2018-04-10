@@ -1,5 +1,6 @@
 // pages/person/person.js
 const app = getApp()
+const serverHost = app.globalData.serverHost;
 Page({
 
   /**
@@ -42,6 +43,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.request({
+      url: serverHost + '',
+      success: res => {
+        console.log(res);
+      }
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
