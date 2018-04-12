@@ -22,7 +22,7 @@
   width: 100%;
   position: fixed;
   left: 0rpx;
-  top: 220rpx;
+  top: 280rpx;
 }
 
 .menuItem {

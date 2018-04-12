@@ -27,17 +27,51 @@ Page({
     this.getIndexGoods();
   },
   //事件处理函数
-  goodsInfo: function () {
+  goodsInfo: function (e) {
     console.log('跳转到商品详情')
+    let goodsId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../goods/goodsInfo',
+      url: '../goods/goodsInfo?id=' + goodsId,
     })
   },
   addCart: function (e) {
     console.log(e);
-    wx.showToast({
-      title: e.currentTarget.dataset.id + '加入成功',
-    })
+    let goodsId = e.currentTarget.dataset.id;
+    try {
+      let userid = wx.getStorageSync("userid");
+      if (userid) {
+        wx.request({
+          url: serverHost + 'cart/add',
+          data: {
+            goodsId: goodsId,
+            userId: userid
+          },
+          success: function (res) {
+            if (res) {
+              wx.showToast({
+                title: goodsId + '加入成功',
+              })
+            } else {
+              wx.showModal({
+                title: '您未登录',
+                content: '请先登录',
+              })
+            }
+          }
+        })
+
+      } else {
+        wx.showModal({
+          title: '您未登录',
+          content: '请先登录',
+        })
+      }
+    } catch (e) {
+      wx.showModal({
+        title: '发生错误',
+        content: e,
+      })
+    }
   }
 
 })

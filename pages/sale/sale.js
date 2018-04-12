@@ -7,13 +7,13 @@ Page({
     goodsList: []
   },
   onLoad: function () {
-    this.getSaleGoods();
+    //this.getSaleGoods();
   },
   //获取售卖的商品
   getSaleGoods: function () {
     let _this = this;
     wx.request({
-      url: serverHost + 'sale/sale.php',
+      url: serverHost + 'goods/sale',
       success: function (res) {
         console.log(res);
         _this.setData({
@@ -25,7 +25,7 @@ Page({
   },
   //下拉刷新
   onPullDownRefresh: function () {
-    this.getSaleGoods();
+    //this.getSaleGoods();
   },
   //事件处理函数
   goodsInfo: function (e) {

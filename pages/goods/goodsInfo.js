@@ -1,4 +1,6 @@
 // pages/goods/goodsInfo.js
+let app = getApp();
+let serverHost = app.globalData.serverHost;
 Page({
 
   /**
@@ -6,9 +8,8 @@ Page({
    */
   data: {
     id: 1,
-    title: '罗技（Logitech） G100s 即时战略/在线竞技光电游戏鼠标',
-    price: 119,
-    imgsUrl: ['../images/head.png', '../images/head.png', '../images/head.png']
+    imgsUrl: ['../images/head.png', '../images/head.png', '../images/head.png'],
+    goodsInfo: null
   },
   naviToCart: function () {
     wx.switchTab({
@@ -27,6 +28,47 @@ Page({
     // wx.switchTab({
     //   url: '../cart/cart',
     // })
+  },
+  onLoad: function (options) {
+    console.log(options);
+    this.setData({
+      id: options.id
+    })
+    this.getGoodsInfo();
+    //let goodsId = options.id;
+  },
+  onPullDownRefresh: function () {
+    this.getGoodsInfo();
+  },
+  getGoodsInfo: function () {
+    let _this = this;
+    wx.request({
+      url: serverHost + 'goods/goodsInfo',
+      data: {
+        goodsId: _this.data.id
+      },
+      success: function (res) {
+        console.log(res);
+        if (res.data) {
+          let imgUrls = res.data.imgUrls || new Array()
+          _this.setData({
+            goodsInfo: res.data,
+            imgsUrl: imgUrls.split(','),
+          })
+        } else {
+          wx.showModal({
+            title: '加载错误',
+            content: '数据加载错误',
+            success: function (res) {
+              wx.navigateBack()
+            },
+            fail: function () {
+              wx.navigateBack()
+            }
+          })
+        }
+        wx.stopPullDownRefresh();
+      }
+    })
   }
-
 })

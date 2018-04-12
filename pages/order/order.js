@@ -36,40 +36,33 @@ Page({
         title: '小米MIX2S',
         price: '32997',
         num: 1
-      },
-      {
-        id: 4,
-        img: 'https://i8.mifile.cn/b2c-mimall-media/549a053521e19de494c35b4e6d46b0ef.jpg',
-        title: '小米MIX2S',
-        price: '32979',
-        num: 5
-      },
-      {
-        id: 5,
-        img: 'https://i8.mifile.cn/b2c-mimall-media/549a053521e19de494c35b4e6d46b0ef.jpg',
-        title: '小米MIX2S',
-        price: '3199',
-        num: 4
-      },
-      {
-        id: 6,
-        img: 'https://i8.mifile.cn/b2c-mimall-media/549a053521e19de494c35b4e6d46b0ef.jpg',
-        title: '小米MIX2S',
-        price: '3299',
-        num: 1
       }]
   },
   chooseAddr: function () {
-    console.log('选择地址')
-    wx.navigateTo({
-      url: '../address/address',
+    let _this = this;
+    wx.chooseAddress({
+      success: function (res) {
+        console.log(res);
+        _this.setData({
+          user : {
+            name : res.userName,
+            phone:res.telNumber,
+            address:{
+              p:res.provinceName,
+              c:res.cityName,
+              r:res.countyName,
+              o:res.detailInfo
+            }
+          }
+        })
+      }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-
+    //this.getCheckdGoodsList();
     this.countPrice();
   },
   onShow: function () {

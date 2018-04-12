@@ -3,9 +3,9 @@
 <view class="container">
   <view class='cart' wx:for="{{cartArr}}" wx:key='item.id'>
     <view class='cart-item'>
-      <checkbox class='cart-cb' value="{{item.id}}" data-index='{{index}}' data-checked='{{item.checked}}' checked="{{item.checked}}" bindtap='goodsChecked' />
+      <checkbox class='cart-cb' value="{{item.id}}" data-index='{{index}}' data-checked='{{item.checked}}' checked="{{item.checked == '1'}}" bindtap='goodsChecked' />
       <view class='cart-goods'>
-        <image class='cart-img' bindtap='goodsInfo' src='{{item.img}}' mode='aspectFill'></image>
+        <image class='cart-img' bindtap='goodsInfo' src='{{item.imgUrl}}' mode='aspectFill'></image>
         <view class='goods'>
           <view class='goods-name'>{{item.title}}</view>
           <view class='goods-line'>

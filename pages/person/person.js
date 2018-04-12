@@ -9,7 +9,7 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   //订单管理
   orderManage: function () {
@@ -42,13 +42,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    wx.request({
-      url: serverHost + '',
-      success: res => {
-        console.log(res);
-      }
-    })
+  onLoad: function (options) { 
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
