@@ -1,15 +1,18 @@
 <!--pages/order/order.wxml-->
 <wxs module="filters" src="../../utils/tools.wxs"></wxs>
 <view class="container">
-  <view class='address' bindtap='chooseAddr'>
-    <view class='user-info'>{{user.name}}-{{user.phone}}</view>
-    <view class='user-address'>{{user.address.p||""}}{{user.address.c||""}}{{user.address.r||""}}{{user.address.o||""}}</view>
+  <view class='address' bindtap='chooseAddr' wx:if="{{isShowAddress}}">
+    <view class='user-info'>{{address.userName}}-{{address.telNumber}}</view>
+    <view class='user-address'>{{address.provinceName||""}}{{address.cityName||""}}{{address.countyName||""}}{{address.detailInfo||""}}</view>
+  </view>
+  <view class='address' style='align-items: center;' bindtap='chooseAddr' wx:if="{{!isShowAddress}}">
+    <view>请选择地址</view>
   </view>
   <view class='order-info'>
     <view class='cart' wx:for="{{orderList}}" wx:key='item.id'>
       <view class='cart-item' data-id='{{item.id}}' bindtap='naviGoodsInfo'>
         <view class='cart-goods'>
-          <image class='cart-img' bindtap='goodsInfo' src='{{item.img}}' mode='aspectFill'></image>
+          <image class='cart-img' bindtap='goodsInfo' src='{{item.imgUrl}}' mode='aspectFill'></image>
           <view class='goods'>
             <view class='goods-name'>{{item.title}}</view>
             <view class='goods-line'>
@@ -30,11 +33,11 @@
       <text class='order-price'>￥{{filters.toFix(goodsPrice)}}</text>
     </view>
     <view>运费
-      <text class='order-price'>+￥{{filters.toFix(weightPrice)}}</text>
+      <text class='order-price'>+￥{{filters.toFix(freight)}}</text>
     </view>
     <view>
       <text class='order-price'>总价￥{{filters.toFix(priceCount)}}</text>
     </view>
   </view>
-  <view class='order-pay' bindtap='orderPay'>微信支付</view>
+  <view class='order-pay' bindtap='orderPay'>提交订单</view>
 </view>

@@ -38,7 +38,7 @@ Page({
     console.log(e);
     let goodsId = e.currentTarget.dataset.id;
     try {
-      let userid = wx.getStorageSync("userid");
+      let userid = app.globalData.userid;//wx.getStorageSync("userid");
       if (userid) {
         wx.request({
           url: serverHost + 'cart/add',

@@ -1,42 +1,20 @@
 // pages/order/order.js
 let app = getApp();
+let serverHost = app.globalData.serverHost;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    user: {
-      name: '李不言',
-      phone: '18353125037',
-      address: { p: '山东省', c: '济南市', r: '历下区', o: '普利广场' }
-    },
+    isShowAddress: false,
+    address: null,
     goodsNum: 0,
     priceCount: 0,
     goodsPrice: 0,
-    weightPrice: 5,
-    orderList: [
-      {
-        id: 1,
-        img: 'https://i8.mifile.cn/b2c-mimall-media/549a053521e19de494c35b4e6d46b0ef.jpg',
-        title: '小米MIX2S',
-        price: '399.45',
-        num: 2
-      },
-      {
-        id: 2,
-        img: 'https://i8.mifile.cn/b2c-mimall-media/549a053521e19de494c35b4e6d46b0ef.jpg',
-        title: '小米MIX2S',
-        price: '299.5',
-        num: 3
-      },
-      {
-        id: 3,
-        img: 'https://i8.mifile.cn/b2c-mimall-media/549a053521e19de494c35b4e6d46b0ef.jpg',
-        title: '小米MIX2S',
-        price: '32997',
-        num: 1
-      }]
+    freight: 5,
+    orderList: [],
+    userId: wx.getStorageSync("userid")
   },
   chooseAddr: function () {
     let _this = this;
@@ -44,16 +22,8 @@ Page({
       success: function (res) {
         console.log(res);
         _this.setData({
-          user : {
-            name : res.userName,
-            phone:res.telNumber,
-            address:{
-              p:res.provinceName,
-              c:res.cityName,
-              r:res.countyName,
-              o:res.detailInfo
-            }
-          }
+          address: res,
+          isShowAddress: true
         })
       }
     })
@@ -62,17 +32,60 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    //this.getCheckdGoodsList();
-    this.countPrice();
+    //this.getUserId();
+    this.getCheckdGoodsList();
   },
-  onShow: function () {
-    if (app.globalData.userAddress != null) {
-      console.log(app.globalData.userAddress)
-      this.setData({
-        user: app.globalData.userAddress.user
-      })
-    }
+  // getUserId: function () {
+  //   if (this.data.userId) {
+  //     try {
+  //       let _this = this;
+  //       let userId = wx.getStorageSync("userid");
+  //       if (userId) {
+  //         _this.setData({
+  //           userId: userId
+  //         })
+  //         return userId;
+  //       } else {
+  //         console.log("未登录");
+  //       }
+  //     } catch (e) {
+
+  //     }
+  //   }
+  // },
+  onPullDownRefresh: function () {
+    this.getCheckdGoodsList();
   },
+  getCheckdGoodsList: function () {
+    let _this = this;
+    let userId = _this.data.userId;
+    // if (!userId) {
+    //   userId = _this.getUserId();
+    // }
+    wx.request({
+      url: serverHost + 'order/getCheckedGoods',
+      data: {
+        userId: userId
+      },
+      success: function (res) {
+        console.log(res.data);
+        _this.setData({
+          orderList: res.data
+        })
+        wx.stopPullDownRefresh();
+        _this.countPrice();
+      }
+    })
+  },
+  // onShow: function () {
+  //   console.log(this.data.address)
+  //   if (this.data.address != null) {
+  //     console.log(this.data.address)
+  //     this.setData({
+  //       isShowAddress: true
+  //     })
+  //   }
+  // },
   numAdd: function (e) {
     let index = e.currentTarget.dataset.index;//
     let newList = this.data.orderList
@@ -102,7 +115,7 @@ Page({
     for (let goods of newList) {
       allPrice += parseInt(goods.num) * goods.price;
     }
-    let priceCount = allPrice + this.data.weightPrice;
+    let priceCount = allPrice + this.data.freight;
     this.setData({
       goodsPrice: allPrice,
       priceCount: priceCount
@@ -116,22 +129,54 @@ Page({
     })
   },
   orderPay: function () {
-    wx.requestPayment(
-      {
-        'timeStamp': '',
-        'nonceStr': '',
-        'package': '',
-        'signType': 'MD5',
-        'paySign': '',
-        success: function (res) { },
-        fail: function (res) {
-          console.log(res);
-          wx.showModal({
-            title: '支付结果',
-            content: res.errMsg,
-          })
-        },
-        complete: function (res) { }
-      })
+    this.createOrder();
+    // wx.requestPayment(
+    //   {
+    //     'timeStamp': '',
+    //     'nonceStr': '',
+    //     'package': '',
+    //     'signType': 'MD5',
+    //     'paySign': '',
+    //     success: function (res) { },
+    //     fail: function (res) {
+    //       console.log(res);
+    //       wx.showModal({
+    //         title: '支付结果',
+    //         content: res.errMsg,
+    //       })
+    //     },
+    //     complete: function (res) { }
+    //   })
+  },
+  createOrder: function () {
+    let _this = this;
+    let userId = _this.data.userId;
+    let address = JSON.stringify(_this.data.address);
+    let goods = JSON.stringify(_this.data.orderList);
+    let freight = _this.data.freight;
+    wx.request({
+      url: serverHost + 'order/create',
+      method: "POST",
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      data: {
+        userId: userId,
+        address: address,
+        goods: goods,
+        freight: freight
+      },
+      success: function (res) {
+        console.log(res.data)
+        let msg = res.data == 'success' ? '提交成功' : '提交失败';
+        wx.showToast({
+          title: msg,
+        })
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: '发生异常',
+          content: e,
+        })
+      }
+    })
   }
 })

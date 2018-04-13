@@ -40,6 +40,7 @@ App({
                 },
                 success: res => {
                   console.log('login' + JSON.stringify(res));
+                  this.globalData.userid = res.data;
                   wx.setStorage({ key: 'userid', data: res.data})
                 }
               })
@@ -55,6 +56,7 @@ App({
     })
   },
   globalData: {
+    userid:null,
     userInfo: null,
     userAddress: null,
     serverHost: "http://vadonmo.com:8080/store/"
