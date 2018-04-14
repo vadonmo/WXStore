@@ -6,28 +6,35 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    imgUrl: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let _this = this;
+    let userid = app.globalData.userid;
+    console.log("userId=======" + userid);
     wx.request({
       method: 'POST',
       url: app.globalData.serverHost + 'qrcode',
       data: {
         page: 'pages/index/index',
-        scene: 'id:1111'
+        scene: 'id:' + userid,
+        userid: userid
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
-      success(res) {        
+      success(res) {
         console.log(res);
+        _this.setData({
+          imgUrl: "http://vadonmo.com:8080/upload/" + res.data
+        })
       },
       fail() {
-        
+
       }
     })
   },

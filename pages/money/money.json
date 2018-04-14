@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "返佣现金"
+  "navigationBarTitleText": "返佣现金",
+  "enablePullDownRefresh": false
 }
