@@ -56,7 +56,7 @@ App({
     })
   },
   globalData: {
-    userid:null,
+    userid:'',
     userInfo: null,
     userAddress: null,
     serverHost: "http://vadonmo.com:8080/store/"
