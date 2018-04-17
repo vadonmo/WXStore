@@ -1,4 +1,5 @@
 /* pages/order/orderInfo.wxss */
+
 .orderItem {
   width: 95%;
   display: flex;
@@ -26,4 +27,8 @@
 
 .order-count {
   justify-content: space-between;
+}
+
+.address view {
+  margin-top: 10rpx;
 }

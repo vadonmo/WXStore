@@ -43,12 +43,22 @@ Page({
   getGoodsInfo: function () {
     let _this = this;
     wx.request({
-      url: serverHost + 'goods/goodsInfo',
-      data: {
-        goodsId: _this.data.id
-      },
+      url: serverHost + 'goods/goodsInfo/' + _this.data.id,
+      // data: {
+      //   goodsId: _this.data.id
+      // },
       success: function (res) {
         console.log(res);
+        if (res.statusCode != 200) {
+          wx.showModal({
+            title: '加载错误',
+            content: '数据加载错误',
+            complete: function () {
+              wx.navigateBack()
+            }
+          })
+
+        }
         if (res.data) {
           let imgUrls = res.data.imgUrls || new Array()
           _this.setData({
@@ -59,10 +69,7 @@ Page({
           wx.showModal({
             title: '加载错误',
             content: '数据加载错误',
-            success: function (res) {
-              wx.navigateBack()
-            },
-            fail: function () {
+            complete: function () {
               wx.navigateBack()
             }
           })

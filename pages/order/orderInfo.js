@@ -37,7 +37,13 @@ Page({
       }
     })
   },
-
+  goodsInfo: function (e) {
+    let goodsId = e.currentTarget.dataset.id;
+    console.log(e);
+    wx.navigateTo({
+      url: '../goods/goodsInfo?id=' + goodsId,
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
