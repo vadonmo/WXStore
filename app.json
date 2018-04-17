@@ -11,7 +11,8 @@
     "pages/user/userCommend/userCommend",
     "pages/money/money",
     "pages/sale/sale",
-    "pages/sale/edit/editGoods"
+    "pages/sale/edit/editGoods",
+    "pages/order/orderInfo"
   ],
   "window": {
     "backgroundTextStyle": "dark",

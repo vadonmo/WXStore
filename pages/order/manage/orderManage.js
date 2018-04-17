@@ -12,6 +12,9 @@ Page({
   viewOrderInfo: function (e) {
     let orderId = e.currentTarget.dataset.id;
     console.log(orderId);
+    wx.navigateTo({
+      url: '../orderInfo?orderId=' + orderId
+    })
   },
   deleOrder: function (e) {
     let index = e.currentTarget.dataset.index;

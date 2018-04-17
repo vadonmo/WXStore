@@ -15,11 +15,11 @@
           <view class='order-num'>x{{item.num}}</view>
           <view class='order-all'>总价：{{filters.toFix(item.num * item.price)}}</view>
         </view>
-        <view class='order-count'>
-          <view class='order-status'>订单状态：{{item.status}}</view>
 
-        </view>
       </view>
+    </view>
+    <view class='order-count'>
+      <view class='order-status'>订单状态：{{item.status}}</view>
     </view>
   </view>
 </view>
