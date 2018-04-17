@@ -27,10 +27,6 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/sale/sale",
-        "text": "商品上架"
-      },
-      {
         "pagePath": "pages/cart/cart",
         "text": "购物车"
       },

@@ -160,9 +160,10 @@ Page({
       url: '../order/order',
     })
   },
-  goodsInfo: function () {
+  goodsInfo: function (e) {
+    let goodsId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../goods/goodsInfo',
+      url: '../goods/goodsInfo?id=' + goodsId,
     })
   },
   updateCartNum: function (cartId, opType) {

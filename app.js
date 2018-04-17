@@ -11,6 +11,7 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log(res);
         if (res.code) {
           code = res.code;
         } else {
@@ -41,7 +42,7 @@ App({
                 success: res => {
                   console.log('login' + JSON.stringify(res));
                   this.globalData.userid = res.data;
-                  wx.setStorage({ key: 'userid', data: res.data})
+                  wx.setStorage({ key: 'userid', data: res.data })
                 }
               })
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -56,7 +57,7 @@ App({
     })
   },
   globalData: {
-    userid:'',
+    userid: '',
     userInfo: null,
     userAddress: null,
     serverHost: "http://vadonmo.com:8080/store/"

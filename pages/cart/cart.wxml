@@ -5,7 +5,7 @@
     <view class='cart-item'>
       <checkbox class='cart-cb' value="{{item.id}}" data-index='{{index}}' data-checked='{{item.checked}}' checked="{{item.checked == '1'}}" bindtap='goodsChecked' />
       <view class='cart-goods'>
-        <image class='cart-img' bindtap='goodsInfo' src='{{item.imgUrl}}' mode='aspectFill'></image>
+        <image class='cart-img' data-id="{{item.id}}" bindtap='goodsInfo' src='{{item.imgUrl}}' mode='aspectFill'></image>
         <view class='goods'>
           <view class='goods-name'>{{item.title}}</view>
           <view class='goods-line'>

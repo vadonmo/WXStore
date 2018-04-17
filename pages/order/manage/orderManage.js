@@ -9,6 +9,10 @@ Page({
   data: {
     orderList: []
   },
+  viewOrderInfo: function (e) {
+    let orderId = e.currentTarget.dataset.id;
+    console.log(orderId);
+  },
   deleOrder: function (e) {
     let index = e.currentTarget.dataset.index;
     let newList = this.data.orderList;
@@ -18,20 +22,20 @@ Page({
       orderList: newList
     })
     wx.request({
-      url: serverHost +'order/delete',
-      data:{
-        orderId : orderId
+      url: serverHost + 'order/delete',
+      data: {
+        orderId: orderId
       },
-      success:function(res){
+      success: function (res) {
         let msg = "删除失败"
-        if(res.data == "success"){
-          msg = "删除成功" ;
+        if (res.data == "success") {
+          msg = "删除成功";
         }
         wx.showToast({
           title: msg,
         })
       },
-      fail:function(){
+      fail: function () {
         wx.showToast({
           title: "删除失败",
         })
