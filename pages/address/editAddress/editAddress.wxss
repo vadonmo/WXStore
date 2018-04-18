@@ -1,10 +1,18 @@
 /* pages/address/editAddress/editAddress.wxss */
 
-.edit-address {
-  align-items: left;
-  margin: 20rpx;
+form {
+  width: 100%;
+  height: 100%;
+
 }
 
-.edit-address input, .selection {
+.address-item {
+  display: flex;
+  flex-direction: row;
   width: 100%;
+}
+
+.edit-address {
+  align-items: left;
+  padding: 20rpx;
 }

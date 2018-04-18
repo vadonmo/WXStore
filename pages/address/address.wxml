@@ -5,12 +5,12 @@
       <radio wx:if="{{from != 'person'}}" class='address-cb' value="{{item.id}}" data-index='{{index}}' data-checked='{{item.checked}}' checked="{{item.checked}}" bindtap='addressChecked' />
       <view class='address'>
         <view class='addressInfo'>
-          <view class='user-info'>{{item.user.name}}-{{item.user.phone}}</view>
-          <view class='user-address'>{{item.user.address.p||""}}{{item.user.address.c||""}}{{item.user.address.r||""}}{{item.user.address.o||""}}</view>
+          <view class='user-info'>{{item.userName}}-{{item.telNumber}}</view>
+          <view class='user-address'>{{item.provinceName||""}}{{item.cityName||""}}{{item.countyName||""}}{{item.detailInfo||""}}</view>
         </view>
         <view class='address-op'>
-          <view class='address-edit' data-index='{{index}}' catchtap='editAddress'>修改</view>
-          <view class='address-delete' data-index='{{index}}' catchtap='deleteAddress'>删除</view>
+          <view class='address-edit' data-index='{{index}}' data-id='{{item.id}}' catchtap='editAddress'>修改</view>
+          <view class='address-delete' data-index='{{index}}' data-id='{{item.id}}' catchtap='deleteAddress'>删除</view>
         </view>
       </view>
     </view>

@@ -57,7 +57,6 @@ Page({
               wx.navigateBack()
             }
           })
-
         }
         if (res.data) {
           let imgUrls = res.data.imgUrls || new Array()
